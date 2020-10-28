@@ -52,6 +52,35 @@ public class Commitment {
     public Commitment() {
     }
 
+    public String getMessage() {
+        return message;
+    }
 
+    public byte[] getSequenceA() {
+        return sequenceA;
+    }
 
+    public byte[] getSequenceB() {
+        return sequenceB;
+    }
+
+    public byte[] getHash() {
+        return hash;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setSequenceA(byte[] sequenceA) {
+        this.sequenceA = sequenceA;
+    }
+
+    public void setSequenceB(byte[] sequenceB) {
+        this.sequenceB = sequenceB;
+    }
+
+    public void setHash(byte[] hash) {
+        this.hash = hash;
+    }
 }

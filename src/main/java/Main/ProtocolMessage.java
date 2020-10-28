@@ -35,6 +35,13 @@ public class ProtocolMessage {
         System.arraycopy(message, 0, this.raw, 4, message.length);
     }
 
+    public ProtocolMessage(String message) {
+        this.length = message.length();
+        this.message = message.toCharArray();
+
+        composeRawData(this.length, this.message);
+    }
+
     public ProtocolMessage(int length, char[] message) {
         this.length = length;
         this.message = message;

@@ -32,7 +32,7 @@ public class ProtocolMessage {
         this.raw[2] = (char)integer[2];
         this.raw[3] = (char)integer[3];
 
-        System.arraycopy(message, 4, this.raw, 4, message.length);
+        System.arraycopy(message, 0, this.raw, 4, message.length);
     }
 
     public ProtocolMessage(int length, char[] message) {

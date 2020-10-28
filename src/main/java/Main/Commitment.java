@@ -49,7 +49,9 @@ public class Commitment {
         }
     }
 
-    public Commitment() {
+    public Commitment(byte[] sequenceA, byte[] hash) {
+        this.sequenceA = sequenceA;
+        this.hash = hash;
     }
 
     public boolean checkHash() {

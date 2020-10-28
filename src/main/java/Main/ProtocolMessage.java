@@ -50,10 +50,16 @@ public class ProtocolMessage {
 
     private void deconstructPacket(char[] raw){
         byte[] rawLength = new byte[4];
-        System.arraycopy(raw, 0, rawLength, 0, 4);
-        System.arraycopy(raw, 4, this.message, 0, message.length);
+        rawLength[0] = (byte)raw[0];
+        rawLength[1] = (byte)raw[1];
+        rawLength[2] = (byte)raw[2];
+        rawLength[3] = (byte)raw[3];
 
         this.length = byteToInt(rawLength);
+
+        this.message = new char[length];
+        System.arraycopy(raw, 4, this.message, 0, message.length);
+
     }
 
     public int getLength() {

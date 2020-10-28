@@ -32,9 +32,9 @@ public class Commitment {
         this.message = message;
 
         this.sequenceA = generateRandomSequence();
-        logger.log(Level.INFO, "Random sequence A is " + Arrays.toString(this.sequenceA));
+        logger.log(Level.INFO, "Random sequence A is " + Utils.bytesToHex(this.sequenceA));
         this.sequenceB = generateRandomSequence();
-        logger.log(Level.INFO, "Random sequence B is " + Arrays.toString(this.sequenceB));
+        logger.log(Level.INFO, "Random sequence B is " + Utils.bytesToHex(this.sequenceB));
 
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -43,7 +43,7 @@ public class Commitment {
             digest.update(this.message.getBytes(StandardCharsets.UTF_8));
 
             this.hash = digest.digest();
-            logger.log(Level.INFO, "Hash is " + Arrays.toString(this.hash));
+            logger.log(Level.INFO, "Hash is " + Utils.bytesToHex(this.hash));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class Commitment {
             digest.update(this.sequenceB);
             digest.update(this.message.getBytes(StandardCharsets.UTF_8));
 
-            result = this.hash == digest.digest();
+            result = Arrays.equals(this.hash, digest.digest());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

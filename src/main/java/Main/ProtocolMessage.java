@@ -1,10 +1,10 @@
 package Main;
 
 public class ProtocolMessage {
-    int length;
-    char[] message;
+    private int length;
+    private char[] message;
 
-    char[] raw;
+    private char[] raw;
 
     /** Convert an integer into 4-byte array */
     private byte[] intToByte(int value) {

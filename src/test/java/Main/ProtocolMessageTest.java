@@ -1,7 +1,7 @@
 package Main;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProtocolMessageTest {
 
@@ -13,7 +13,7 @@ public class ProtocolMessageTest {
         char[] data = messageIn.getRaw();
         ProtocolMessage messageOut = new ProtocolMessage(data);
         assertEquals(length, messageOut.getLength(), "Length not right.");
-        assertEquals(msg, messageOut.getMessage(), "Message not right.");
+        assertArrayEquals(msg, messageOut.getMessage(), "Message not right.");
 
     }
 }

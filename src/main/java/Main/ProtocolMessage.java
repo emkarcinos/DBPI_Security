@@ -41,4 +41,30 @@ public class ProtocolMessage {
 
         composeRawData(length, message);
     }
+
+    public ProtocolMessage(char[] raw) {
+        this.raw = raw;
+
+        deconstructPacket(raw);
+    }
+
+    private void deconstructPacket(char[] raw){
+        byte[] rawLength = new byte[4];
+        System.arraycopy(raw, 0, rawLength, 0, 4);
+        System.arraycopy(raw, 4, this.message, 0, message.length);
+
+        this.length = byteToInt(rawLength);
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public char[] getMessage() {
+        return message;
+    }
+
+    public char[] getRaw() {
+        return raw;
+    }
 }

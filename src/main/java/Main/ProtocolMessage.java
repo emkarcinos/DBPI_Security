@@ -22,4 +22,23 @@ public class ProtocolMessage {
                 (bytes[2] & 0xFF) << 8 |
                 (bytes[3] & 0xFF);
     }
+
+    private void composeRawData(int length, char[] message){
+        this.raw = new char[4 + length];
+        byte[] integer = intToByte(length);
+
+        this.raw[0] = (char)integer[0];
+        this.raw[1] = (char)integer[1];
+        this.raw[2] = (char)integer[2];
+        this.raw[3] = (char)integer[3];
+
+        System.arraycopy(message, 4, this.raw, 4, message.length);
+    }
+
+    public ProtocolMessage(int length, char[] message) {
+        this.length = length;
+        this.message = message;
+
+        composeRawData(length, message);
+    }
 }

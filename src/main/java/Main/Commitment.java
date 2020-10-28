@@ -52,6 +52,22 @@ public class Commitment {
     public Commitment() {
     }
 
+    public boolean checkHash() {
+        boolean result = false;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(this.sequenceA);
+            digest.update(this.sequenceB);
+            digest.update(this.message.getBytes(StandardCharsets.UTF_8));
+
+            result = this.hash == digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
     public String getMessage() {
         return message;
     }
@@ -72,15 +88,8 @@ public class Commitment {
         this.message = message;
     }
 
-    public void setSequenceA(byte[] sequenceA) {
-        this.sequenceA = sequenceA;
-    }
-
     public void setSequenceB(byte[] sequenceB) {
         this.sequenceB = sequenceB;
     }
 
-    public void setHash(byte[] hash) {
-        this.hash = hash;
-    }
 }

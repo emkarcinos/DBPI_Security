@@ -36,17 +36,8 @@ public class Commitment {
         this.sequenceB = generateRandomSequence();
         logger.log(Level.INFO, "Random sequence B is " + Utils.bytesToHex(this.sequenceB));
 
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            digest.update(this.sequenceA);
-            digest.update(this.sequenceB);
-            digest.update(this.message.getBytes(StandardCharsets.UTF_8));
-
-            this.hash = digest.digest();
-            logger.log(Level.INFO, "Hash is " + Utils.bytesToHex(this.hash));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        this.hash = calculateHash();
+        logger.log(Level.INFO, "Hash is " + Utils.bytesToHex(this.hash));
     }
 
     public Commitment(byte[] sequenceA, byte[] hash) {
@@ -54,19 +45,22 @@ public class Commitment {
         this.hash = hash;
     }
 
-    public boolean checkHash() {
-        boolean result = false;
+    private byte[] calculateHash(){
+        byte[] result = new byte[32];
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(this.sequenceA);
             digest.update(this.sequenceB);
             digest.update(this.message.getBytes(StandardCharsets.UTF_8));
-
-            result = Arrays.equals(this.hash, digest.digest());
+            result = digest.digest();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public boolean checkHash() {
+        return Arrays.equals(this.hash, calculateHash());
     }
 
 

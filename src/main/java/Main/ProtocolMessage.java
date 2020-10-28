@@ -4,6 +4,8 @@ public class ProtocolMessage {
     int length;
     char[] message;
 
+    char[] raw;
+
     /** Convert an integer into 4-byte array */
     private byte[] intToByte(int value) {
         return new byte[] {

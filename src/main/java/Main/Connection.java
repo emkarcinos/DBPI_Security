@@ -57,4 +57,8 @@ public class Connection {
     public BufferedReader getIn() {
         return in;
     }
+
+    public boolean isHost() {
+        return isHost;
+    }
 }

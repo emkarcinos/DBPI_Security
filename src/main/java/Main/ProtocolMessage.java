@@ -1,13 +1,23 @@
 package Main;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
 public class ProtocolMessage {
+    private static final Logger logger = LogManager.getLogger(App.class);
+
     private int length;
     private char[] message;
 
     private char[] raw;
 
     /** Convert an integer into 4-byte array */
-    private byte[] intToByte(int value) {
+    public static byte[] intToByte(int value) {
         return new byte[] {
                 (byte)(value >>> 24),
                 (byte)(value >>> 16),
@@ -16,7 +26,7 @@ public class ProtocolMessage {
     }
 
     /** Convert a byte array into 4-byte integer */
-    private int byteToInt(byte[] bytes) {
+    public static int byteToInt(byte[] bytes) {
         return bytes[0] << 24 |
                 (bytes[1] & 0xFF) << 16 |
                 (bytes[2] & 0xFF) << 8 |
@@ -66,6 +76,27 @@ public class ProtocolMessage {
 
         this.message = new char[length];
         System.arraycopy(raw, 4, this.message, 0, message.length);
+
+    }
+
+    public void sendToStream(Writer writer) throws IOException {
+        writer.write(this.raw);
+        writer.flush();
+    }
+
+    public void readFromStream(Reader reader) throws IOException {
+        int totalBytesRead = 0;
+
+        // Read first 4 bytes containing the length of the incoming message
+        while(totalBytesRead != 4){
+            int bytesRead = reader.read(this.raw, totalBytesRead, 4 - totalBytesRead);
+            if (bytesRead == -1) {
+                logger.log(Level.ERROR, "Invalid packet.");
+                return;
+            } else
+                totalBytesRead += bytesRead;
+        }
+
 
     }
 

@@ -114,6 +114,17 @@ public class ProtocolMessage {
                 totalBytesRead += bytesRead;
         }
 
+        int messageLength = charArrayToInt(this.raw);
+        while(totalBytesRead != 4 + messageLength){
+            int bytesRead = reader.read(this.raw, totalBytesRead, messageLength - totalBytesRead);
+            if (bytesRead == -1) {
+                logger.log(Level.ERROR, "Invalid packet.");
+                return;
+            } else
+                totalBytesRead += bytesRead;
+        }
+
+        deconstructPacket(this.raw);
 
     }
 

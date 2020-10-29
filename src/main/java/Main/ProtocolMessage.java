@@ -106,10 +106,10 @@ public class ProtocolMessage {
 
     public void readFromStream(Reader reader) throws IOException {
         int totalBytesRead = 0;
-
+        char[] buffer = new char[2048];
         // Read first 4 bytes containing the length of the incoming message
         while(totalBytesRead != 4){
-            int bytesRead = reader.read(this.raw, totalBytesRead, 4 - totalBytesRead);
+            int bytesRead = reader.read(buffer, totalBytesRead, 4 - totalBytesRead);
             if (bytesRead == -1) {
                 logger.log(Level.ERROR, "Invalid packet.");
                 return;
@@ -117,16 +117,17 @@ public class ProtocolMessage {
                 totalBytesRead += bytesRead;
         }
 
-        int messageLength = charArrayToInt(this.raw);
+        int messageLength = charArrayToInt(buffer);
         while(totalBytesRead != 4 + messageLength){
-            int bytesRead = reader.read(this.raw, totalBytesRead, messageLength - totalBytesRead);
+            int bytesRead = reader.read(buffer, totalBytesRead, messageLength - totalBytesRead + 4);
             if (bytesRead == -1) {
                 logger.log(Level.ERROR, "Invalid packet.");
                 return;
             } else
                 totalBytesRead += bytesRead;
         }
-
+        this.raw = new char[totalBytesRead];
+        System.arraycopy(buffer, 0, this.raw, 0, totalBytesRead);
         deconstructPacket(this.raw);
 
     }

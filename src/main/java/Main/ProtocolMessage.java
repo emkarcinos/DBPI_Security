@@ -33,6 +33,23 @@ public class ProtocolMessage {
                 (bytes[3] & 0xFF);
     }
 
+    /** Convert an integer into 4-byte array */
+    public static char[] intToCharArray(int value) {
+        return new char[] {
+                (char)(value >>> 24),
+                (char)(value >>> 16),
+                (char)(value >>> 8),
+                (char)value};
+    }
+
+    /** Convert a byte array into 4-byte integer */
+    public static int charArrayToInt(char[] bytes) {
+        return bytes[0] << 24 |
+                (bytes[1] & 0xFF) << 16 |
+                (bytes[2] & 0xFF) << 8 |
+                (bytes[3] & 0xFF);
+    }
+
     private void composeRawData(int length, char[] message){
         this.raw = new char[4 + length];
         byte[] integer = intToByte(length);

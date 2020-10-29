@@ -35,8 +35,8 @@ public class Connection {
     private void makeServer() throws IOException {
         serverSocket = new ServerSocket(portNumber);
         isHost = true;
-        logger.log(Level.INFO, "Starting connection as server on port" + portNumber);
-        logger.log(Level.INFO, "Wairing for client to connect...");
+        logger.log(Level.INFO, "Starting connection as server on port " + portNumber);
+        logger.log(Level.INFO, "Waiting for client to connect...");
         clientSocket = serverSocket.accept();
     }
 

@@ -1,6 +1,9 @@
 package Main;
 
 import org.junit.jupiter.api.Test;
+
+import java.io.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProtocolMessageTest {
@@ -32,5 +35,21 @@ public class ProtocolMessageTest {
         char[] out = ProtocolMessage.intToCharArray(testedInt);
         int result = ProtocolMessage.charArrayToInt(out);
         assertEquals(testedInt, result, "Integers not equal!");
+    }
+
+    @Test
+    public void inputReadingOutputWritingTest() throws IOException {
+        ProtocolMessage message = new ProtocolMessage("This is a text");
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Writer writer = new PrintWriter(stream);
+        message.sendToStream(writer);
+        byte[] buffer = stream.toByteArray();
+
+        ByteArrayInputStream istream = new ByteArrayInputStream(buffer);
+        ProtocolMessage newMessage = new ProtocolMessage();
+        Reader reader = new BufferedReader(new InputStreamReader(istream));
+        newMessage.readFromStream(reader);
+        assertArrayEquals(message.getRaw(), newMessage.getRaw());
     }
 }

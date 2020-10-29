@@ -1,5 +1,7 @@
 package Main;
 
+import java.math.BigInteger;
+
 public class Utils {
     static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
@@ -11,5 +13,9 @@ public class Utils {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    static byte[] stringToBytes(String hexString) {
+        return new BigInteger(hexString, 16).toByteArray();
     }
 }

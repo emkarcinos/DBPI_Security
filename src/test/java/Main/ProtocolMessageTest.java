@@ -16,4 +16,21 @@ public class ProtocolMessageTest {
         assertArrayEquals(msg, messageOut.getMessage(), "Message not right.");
 
     }
+
+    @Test
+    public void byteToIntIntToByteTest(){
+        int testedInt = 12512;
+        byte[] out = ProtocolMessage.intToByte(testedInt);
+        int result = ProtocolMessage.byteToInt(out);
+        assertEquals(testedInt, result, "Integers not equal!");
+
+    }
+
+    @Test
+    public void charToIntToCharTest(){
+        int testedInt = 12512;
+        char[] out = ProtocolMessage.intToCharArray(testedInt);
+        int result = ProtocolMessage.charArrayToInt(out);
+        assertEquals(testedInt, result, "Integers not equal!");
+    }
 }

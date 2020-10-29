@@ -56,6 +56,7 @@
     </properties>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +93,12 @@
                     <source>13</source>
                     <target>13</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
             </plugin>
         </plugins>
     </build>

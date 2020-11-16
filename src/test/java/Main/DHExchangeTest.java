@@ -10,7 +10,6 @@ public class DHExchangeTest {
     void KeyMatchAfterExchangeTest(){
         DHExchange alice = new DHExchange(2048, true);
         DHExchange bob = new DHExchange(2048, false);
-        alice.createKeyPar();
         try {
             bob.createKeyParFromPublicKey(alice.getThisPublicKeyEncoded());
         } catch (Exception e) {

@@ -6,10 +6,10 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Scanner;
 
-public class Interactive {
+public class CommitmentInteractive {
     ProtocolManager protocolManager;
 
-    public Interactive(Reader in, Writer out) {
+    public CommitmentInteractive(Reader in, Writer out) {
         this.protocolManager = new ProtocolManager(in, out);
     }
 

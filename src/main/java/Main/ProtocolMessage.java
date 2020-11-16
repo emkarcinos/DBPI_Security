@@ -52,12 +52,12 @@ public class ProtocolMessage {
 
     private void composeRawData(int length, char[] message){
         this.raw = new char[4 + length];
-        byte[] integer = intToByte(length);
+        char[] integer = intToCharArray(length);
 
-        this.raw[0] = (char)integer[0];
-        this.raw[1] = (char)integer[1];
-        this.raw[2] = (char)integer[2];
-        this.raw[3] = (char)integer[3];
+        this.raw[0] = integer[0];
+        this.raw[1] = integer[1];
+        this.raw[2] = integer[2];
+        this.raw[3] = integer[3];
 
         System.arraycopy(message, 0, this.raw, 4, message.length);
     }

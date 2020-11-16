@@ -4,13 +4,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Connection {
     private static final Logger logger = LogManager.getLogger(App.class);
@@ -46,8 +44,9 @@ public class Connection {
         } catch (ConnectException e) {
             makeServer();
         }
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        out = new PrintWriter(new OutputStreamWriter(
+                clientSocket.getOutputStream(), StandardCharsets.UTF_16), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-16"));
     }
 
     public PrintWriter getOut() {

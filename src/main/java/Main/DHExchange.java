@@ -65,6 +65,9 @@ public class DHExchange {
             agreement.init(keyPair.getPrivate());
 
             thisPublicKey = keyPair.getPublic();
+            agreement.doPhase(otherPublicKey, true);
+
+            generateSecret();
 
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidAlgorithmParameterException | InvalidKeyException e) {
             e.printStackTrace();
@@ -80,6 +83,7 @@ public class DHExchange {
             logger.log(Level.INFO, "Agreement phase...");
             agreement.doPhase(otherPublicKey, true);
 
+            generateSecret();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException e) {
             e.printStackTrace();
         }

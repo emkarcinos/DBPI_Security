@@ -69,7 +69,7 @@ public class DHInteractive {
 
             System.out.println("Done!");
             try {
-                Thread.sleep(200000000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

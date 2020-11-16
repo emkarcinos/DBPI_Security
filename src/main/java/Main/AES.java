@@ -3,8 +3,16 @@ package Main;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import java.security.SecureRandom;
 
 public class AES {
+
+    public static byte[] generateIv(){
+        SecureRandom randomSecureRandom = new SecureRandom();
+        byte[] iv = new byte[16];
+        randomSecureRandom.nextBytes(iv);
+        return iv;
+    }
 
     public static byte[] encrypt(byte[] data, SecretKey secretKey, byte[] iv)
     {

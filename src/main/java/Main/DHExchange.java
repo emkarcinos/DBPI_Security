@@ -80,7 +80,6 @@ public class DHExchange {
 
             X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
             otherPublicKey = keyFac.generatePublic(x509KeySpec);
-            logger.log(Level.INFO, "Agreement phase...");
             agreement.doPhase(otherPublicKey, true);
 
             generateSecret();

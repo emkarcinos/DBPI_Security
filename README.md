@@ -1,6 +1,6 @@
-# DBPI_CommitmentScheme
+# DBPI_Security
 
-Zadanie na przedmiot Bezpieczeństwo Protokołów i Systemów Informatycznych - zobowiązanie bitowe
+Implementations of many security algorhithms for Protocols & Operating Systems Security classes
 
 ## Build
 ```

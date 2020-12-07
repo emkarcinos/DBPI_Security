@@ -6,6 +6,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.Arrays;
 
 public class DSARSAExchange {
     private static int keySize = 1024;
@@ -64,7 +65,7 @@ public class DSARSAExchange {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.DECRYPT_MODE, key);
 
-            return Utils.bytesToHex(cipher.doFinal(data));
+            return new String(cipher.doFinal(data), StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }

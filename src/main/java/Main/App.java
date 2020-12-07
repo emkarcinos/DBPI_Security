@@ -15,7 +15,7 @@ public class App {
             System.out.print("Enter server IP address (leave blank if hosting): ");
             String address = scanner.nextLine();
             Connection connection = new Connection(address);
-            DHInteractive interactive = new DHInteractive(connection.getIn(), connection.getOut());
+            Interactive interactive = new DHInteractive(connection.getIn(), connection.getOut());
             interactive.beginLoopAs(connection.isHost());
 
         } catch (IOException exception) {

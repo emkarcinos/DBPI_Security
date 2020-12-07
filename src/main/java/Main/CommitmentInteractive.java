@@ -1,19 +1,18 @@
 package Main;
 
-import javax.swing.plaf.synth.SynthUI;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Scanner;
 
-public class CommitmentInteractive {
+public class CommitmentInteractive implements Interactive{
     ProtocolManager protocolManager;
 
     public CommitmentInteractive(Reader in, Writer out) {
         this.protocolManager = new ProtocolManager(in, out);
     }
 
-    private void beginSenderInteractive(){
+    public void beginSenderInteractive(){
         System.out.print("You are Alice. Type the message you wish to send to Bob: ");
 
         Scanner scanner = new Scanner(System.in);
@@ -59,7 +58,7 @@ public class CommitmentInteractive {
         }
     }
 
-    private void beginRecieverInteractive(){
+    public void beginRecieverInteractive(){
         System.out.println("You are Bob. Alice wishes you to send you a message.");
         System.out.println("Waiting for Alice...");
 
@@ -102,11 +101,4 @@ public class CommitmentInteractive {
         }
     }
 
-    public void beginLoopAs(boolean isHost){
-        // Host (the one who starts the app first) is Alice - ciphers the message.
-        if(isHost)
-            beginSenderInteractive();
-        else
-            beginRecieverInteractive();
-    }
 }

@@ -1,6 +1,5 @@
 package Main;
 
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.file.Files;
@@ -9,14 +8,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DHInteractive {
+public class DHInteractive implements Interactive{
     ProtocolManager protocolManager;
 
     public DHInteractive(Reader in, Writer out) {
         this.protocolManager = new ProtocolManager(in, out);
     }
 
-    void beginSenderInteractive(){
+    @Override
+    public void beginSenderInteractive(){
         System.out.println("Starting DH key exchange...");
         DHExchange dhExchange = new DHExchange(2048, true);
         System.out.println("Your public key is: " + Utils.bytesToHex(dhExchange.getThisPublicKeyEncoded()));
@@ -81,7 +81,8 @@ public class DHInteractive {
 
     }
 
-    void beginReceiverInteractive(){
+    @Override
+    public void beginRecieverInteractive(){
         System.out.println("Starting DH key exchange...");
         DHExchange dhExchange = new DHExchange(2048, false);
         try {
@@ -138,13 +139,5 @@ public class DHInteractive {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-    }
-
-    public void beginLoopAs(boolean isHost){
-        // Host (the one who starts the app first) is Alice - ciphers the message.
-        if(isHost)
-            beginSenderInteractive();
-        else
-            beginReceiverInteractive();
     }
 }

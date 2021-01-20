@@ -4,6 +4,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Arrays;
@@ -72,4 +73,30 @@ public class DSARSAExchange {
         return null;
     }
 
+    public static byte[] signUsingRSA(byte[] data, PrivateKey key){
+        try {
+            Signature signature = Signature.getInstance("SHA256withRSA");
+            signature.initSign(key);
+            signature.update(data);
+
+            return signature.sign();
+        } catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean verifyRSASignature(byte[] data, byte[] signature, PublicKey key){
+        try {
+        Signature signatureInstance = Signature.getInstance("SHA256withRSA");
+        signatureInstance.initVerify(key);
+        signatureInstance.update(data);
+
+            return signatureInstance.verify(signature);
+        } catch (SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
